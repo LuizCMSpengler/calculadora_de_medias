@@ -3,8 +3,8 @@ const imgAprovado = '<img src="./images/aprovado.png" alt="Emoji feliz" />';
 const imgReprovado = '<img src="./images/reprovado.png" alt="Emoji triste" />';
 const atividades = [];
 const notas = [];
-const spanAprovado = 'span class="resultado aprovado">Aprovado</span>';
-const spanReprovado = 'span class="resultado reprovado">Reprovado</span>';
+const spanAprovado = '<span class="resultado aprovado">Aprovado</span>';
+const spanReprovado = '<span class="resultado reprovado">Reprovado</span>';
 const notaMinima = parseFloat(prompt("Digite a nota mínima:"));
 
 let linhas = '';
@@ -16,6 +16,11 @@ form.addEventListener('submit', function(e) {
     atualizaTabela();
     atualizaMediaFinal();
 });
+
+function atualizaTabela () {
+    const tabela = document.getElementById('conteudo-tabela')
+    tabela.innerHTML = linhas;
+}
 
 function adicionaLinha(){
     const inputNomeAtividade = document.getElementById('nome-atividade');
@@ -33,7 +38,7 @@ function adicionaLinha(){
         linha += `<td>${inputNotaAtividade.value >= notaMinima ? imgAprovado : imgReprovado}</td>`;
         linha += '</tr>';
     
-        linhas += linhas;
+        linhas += linha;
     }
 
     inputNomeAtividade.value = '';
@@ -41,7 +46,7 @@ function adicionaLinha(){
 }
 
 function atualizaMediaFinal() {
-    const mediaFinal = cancelAnimationFrame();
+    const mediaFinal = calculaMediaFinal();
 
     document.getElementById('media-final-valor').innerHTML = mediaFinal;
     document.getElementById('media-final-resultado').innerHTML = mediaFinal >= notaMinima ? spanAprovado : spanReprovado;
